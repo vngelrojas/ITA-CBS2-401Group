@@ -8,3 +8,4 @@ outputs/*
 .idea/*
 map_file/*
 .DS_Store
+myenv
