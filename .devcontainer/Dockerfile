@@ -5,10 +5,13 @@ ARG REINSTALL_CMAKE_VERSION_FROM_SOURCE="3.22.2"
 # Optionally install the cmake for vcpkg 
 COPY ./reinstall-cmake.sh /tmp/
 
+
+RUN apt-get update && apt-get install -y dos2unix
+
 RUN if [ "${REINSTALL_CMAKE_VERSION_FROM_SOURCE}" != "none" ]; then \
-        chmod +x /tmp/reinstall-cmake.sh && /tmp/reinstall-cmake.sh ${REINSTALL_CMAKE_VERSION_FROM_SOURCE}; \
-    fi \
-    && rm -f /tmp/reinstall-cmake.sh
+    dos2unix /tmp/reinstall-cmake.sh && chmod +x /tmp/reinstall-cmake.sh && /tmp/reinstall-cmake.sh ${REINSTALL_CMAKE_VERSION_FROM_SOURCE}; \
+    fi && \
+    rm -f /tmp/reinstall-cmake.sh
 
 # Boost and yaml-cpp
 RUN sudo apt-get update && sudo apt-get install -y libboost-all-dev
